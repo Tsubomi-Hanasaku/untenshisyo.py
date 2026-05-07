@@ -3,10 +3,27 @@ from discord.ext import commands, tasks
 import random
 from datetime import datetime, timedelta
 
+from flask import Flask
+from threading import Thread
+
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+# ===== Flask =====
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+def run_web():
+    app.run(host="0.0.0.0", port=10000)
+
+def keep_alive():
+    t = Thread(target=run_web)
+    t.start()
+    
 # ===== 設定 =====
 CHANNEL_IDS = [1501413828980899911]
 ROLE_ID = 1501220776420835388
@@ -137,4 +154,5 @@ import os
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 
+keep_alive()
 bot.run(TOKEN)
