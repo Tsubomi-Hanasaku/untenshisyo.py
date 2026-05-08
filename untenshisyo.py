@@ -324,4 +324,3 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 # ===== 起動 =====
 keep_alive()
 bot.run(TOKEN)
-```
