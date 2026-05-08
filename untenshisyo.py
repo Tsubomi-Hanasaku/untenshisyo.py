@@ -104,12 +104,12 @@ def is_rush_hour():
 # ===== 運転支障選択 =====
 def get_trouble():
     base = {
-        "お客様トラブル": 1,
-        "線路内人立ち入り": 1,
-        "信号トラブル": 1,
-        "乗務員喧嘩": 1,
-        "混雑": 1,
-        "人身事故": 1
+        "お客様トラブル": 5,
+        "線路内人立ち入り": 10,
+        "信号トラブル": 4,
+        "乗務員喧嘩": 3,
+        "混雑": 20,
+        "人身事故": 2
     }
 
     if is_rush_hour():
@@ -152,7 +152,7 @@ async def on_ready():
 # ===== テストコマンド =====
 @bot.command()
 async def test(ctx):
-    await ctx.send("現在遅延の情報を提供しております。")
+    await ctx.send("現在遅延の情報を提供しております。プリキュア臨時の時に遅れると大変だね")
 
 # ===== メインループ =====
 @tasks.loop(seconds=60)
@@ -195,7 +195,7 @@ async def loop():
         del ongoing_closures[key]
 
     # ===== 新規支障 =====
-    if random.random() > 0.02:
+    if random.random() > 0.1:
         return
 
     line = random.choice(list(lines_data.keys()))
